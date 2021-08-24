@@ -19,7 +19,7 @@
         <h class="lg:text-5xl  font-bold leading-tight text-3xl">Tell the world the untold</h1>
         <p class="mt-4 text-lg font-normal">Sometimes we feel safe if we keep our feelings to ourselves,<br> but not for our hearts. Tell the story here anonymously</p>
         <div class="flex mt-10 w-40 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-            <button id="openModal" class="text-lg text-md">Confess now</button>
+            <button id="openModal" class="text-lg text-md" onclick="toggleModal('modal-id')">Confess now</button>
         </div>
         
      </div>
@@ -33,8 +33,8 @@
     
   </div>
   
-  <!--ini form modals-->
-  <div id="overlay" class="absolute hidden inset-0 bg-black bg-center flex bg-opacity-40 justify-center items-center">
+  <!--ini form modals satu-->
+  <div id="modal-id" class="fixed hidden z-50 inset-0 bg-black bg-center flex bg-opacity-40 justify-center items-center">
     <div>
       <div class="flex max-w-md space-y-8 p-10 bg-white rounded-xl justify-center items-center shadow-lg">
         <div class="grid z-99 w-50 h-50 gap-8 grid-cols-1">
@@ -67,8 +67,8 @@
                   </div>
                   <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an asterisk <abbr title="Required field">*</abbr></p>
                   <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-                    <button id="closeModal" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Cancel</button>
-                    <button class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto" type="submit">Save</button>
+                    <button id="closeModal" onclick="toggleModal('modal-id')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Cancel</button>
+                    <button onclick="openModal('modal-id')" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Save</button>
                   </div>
                 </form>   
               </div>
@@ -78,7 +78,67 @@
       </div>
     </div>
   </div>
+  <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+  <script type="text/javascript">
+    function toggleModal(modalID) {
+      document.getElementById(modalID).classList.toggle("hidden");
+      document.getElementById(modalID + "-backdrop").classList.toggle("show");
+    }
+  </script>
+<!--ini end form modals-->
 
+<!--ini form modals dua-->
+<div id="modal-kedua" class="fixed hidden z-50 inset-0 bg-center flex justify-center items-center">
+  <div>
+    <div class="flex max-w-md space-y-8 p-10 bg-white rounded-xl justify-center items-center shadow-lg">
+      <div class="grid z-99 w-50 h-50 gap-8 grid-cols-1">
+        <div class="flex flex-col justify-center items-center z-99">
+          <div class="flex flex-col sm:flex-row items-center">
+            <h2 class="font-semibold text-lg mr-auto">Tell the story here</h2>
+            <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
+          </div>
+          <div class="mt-5">
+            <div class="form">
+              <form method="post" action="{{url_for('confess')}}">
+                <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <label class="font-semibold text-gray-600 py-2">Title<abbr title="required">*</abbr></label>
+                    <input placeholder="How was today?" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="title_story" id="title_story">
+                    <p class="text-red text-xs hidden">Please fill out this field.</p>
+                  </div>
+                </div>
+                <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                  <div class="mb-3 space-y-2 w-full text-xs">
+                    <label class="font-semibold text-gray-600 py-2">Shown username</label>
+                    <input placeholder="Default value is @unknown" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="username" id="username">
+                    <p class="text-red text-xs hidden">Please fill out this field.</p>
+                  </div>
+                </div>
+                <div class="flex-auto w-full mb-1 text-xs space-y-2">
+                  <label class="font-semibold text-gray-600 py-2">Description</label>
+                  <textarea required="" name="stories" id="stories" onkeyup="countChar(this)" class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Is there anything you want to tell?" spellcheck="false"></textarea>
+                  <p class="text-xs text-gray-400 text-left my-3" id="charNum"></p>
+                </div>
+                <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an asterisk <abbr title="Required field">*</abbr></p>
+                <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
+                  <button id="closeModal" onclick="openModal('modal-id')" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Cancel</button>
+                  <button onclick="openModal('modal-id')" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto" type="submit">Save</button>
+                </div>
+              </form>   
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
+<script type="text/javascript">
+  function openModal(modalID) {
+    document.getElementById(modalID).classList.toggle("show");
+    document.getElementById(modalID + "-backdrop").classList.toggle("hide");
+  }
+</script>
 <!--ini end form modals-->
 
   <!--ini adalah search-->
@@ -134,7 +194,7 @@
                     <!--Footer-->
   </body>
 </html>
-    <script>
+    <script type="text/javascript">
       function countChar(val) {
         var len = val.value.length;
         if (len >= 255) {
@@ -145,12 +205,5 @@
         }
       };
 
-      $(document).ready(function(){
-        $("#closeModal").click(function(){
-          $("#overlay").modal("hide");
-        });
-        $("#openModal").click(function(){
-          $("#overlay").modal("show");
-        });
       
     </script>
