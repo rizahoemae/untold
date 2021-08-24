@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Untold</title>
+    <style>
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);>
+    </style>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body class="bg-gray-100 h-screen">
+  <!-- Box left -->
+  <div class="md:flex space-x-16 mt-20 md:mr-0 mr-10">
+    <div class="md:flex items-center pl-16 ">
+      <div class="">
+        <h class="lg:text-5xl  font-bold leading-tight text-3xl">Tell the world the untold</h1>
+        <p class="mt-4 text-lg font-normal">Sometimes we feel safe if we keep our feelings to ourselves,<br> but not for our hearts. Tell the story here anonymously</p>
+        <div class="flex mt-10 w-40 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
+            <button id="openModal" class="text-lg text-md">Confess now</button>
+        </div>
+        
+     </div>
+     
+    </div>
+    
+    <!-- Box right -->
+    <div class="max-w-lg pr-24 md:flex justify-center items-center  hidden">
+      <img class="rounded-lg" src="{{url_for('static', filename='happy.jpg')}}" alt="">
+    </div>
+    
+  </div>
+  
+  <!--ini form modals-->
+  <div id="overlay" class="absolute hidden inset-0 bg-black bg-center flex bg-opacity-40 justify-center items-center">
+    <div>
+      <div class="flex max-w-md space-y-8 p-10 bg-white rounded-xl justify-center items-center shadow-lg">
+        <div class="grid z-99 w-50 h-50 gap-8 grid-cols-1">
+          <div class="flex flex-col justify-center items-center z-99">
+            <div class="flex flex-col sm:flex-row items-center">
+              <h2 class="font-semibold text-lg mr-auto">Tell the story here</h2>
+              <div class="w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"></div>
+            </div>
+            <div class="mt-5">
+              <div class="form">
+                <form method="post" action="{{url_for('confess')}}">
+                  <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                    <div class="mb-3 space-y-2 w-full text-xs">
+                      <label class="font-semibold text-gray-600 py-2">Title<abbr title="required">*</abbr></label>
+                      <input placeholder="How was today?" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="title_story" id="title_story">
+                      <p class="text-red text-xs hidden">Please fill out this field.</p>
+                    </div>
+                  </div>
+                  <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+                    <div class="mb-3 space-y-2 w-full text-xs">
+                      <label class="font-semibold text-gray-600 py-2">Shown username</label>
+                      <input placeholder="Default value is @unknown" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="username" id="username">
+                      <p class="text-red text-xs hidden">Please fill out this field.</p>
+                    </div>
+                  </div>
+                  <div class="flex-auto w-full mb-1 text-xs space-y-2">
+                    <label class="font-semibold text-gray-600 py-2">Description</label>
+                    <textarea required="" name="stories" id="stories" onkeyup="countChar(this)" class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Is there anything you want to tell?" spellcheck="false"></textarea>
+                    <p class="text-xs text-gray-400 text-left my-3" id="charNum"></p>
+                  </div>
+                  <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an asterisk <abbr title="Required field">*</abbr></p>
+                  <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
+                    <button id="closeModal" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Cancel</button>
+                    <button class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto" type="submit">Save</button>
+                  </div>
+                </form>   
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--ini end form modals-->
+
+  <!--ini adalah search-->
+    <div class="p-8">
+        <div class="bg-white flex items-center rounded-full shadow-lg">
+          <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Search">
+          
+          <div class="p-4">
+            <button class="bg-blue-500 fill-current text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
+              <img src="{{url_for('static', filename='search2.svg')}}" alt="">
+            </button>
+            </div>
+        </div>
+    </div>
+    <!--ini adalah end search-->
+      <!--adalah start login-->
+
+<!-- This is an example component -->
+<section class="flex flex-row flex-wrap mx-auto">
+    <!-- Card Component -->
+    {%for i in story%}
+      <div class="transition-all duration-150 flex w-full px-4 py-6 md:w-1/2 lg:w-1/3">
+        <div class="flex flex-col items-stretch min-h-full pb-4 mb-6 transition-all duration-150">
+        <div class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
+            <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-800" style="max-width: 400px">
+                <div class="w-full flex mb-4">
+                    <div class="flex-grow">
+                        <h6 class="font-bold text-md">{{i["title_story"]}}</h6>
+                        <p class="text-xs text-gray-600">@unknown</p>
+                    </div>
+                    <div class="w-12 text-right">
+                        <i class="mdi mdi-twitter text-blue-400 text-3xl"></i>
+                    </div>
+                </div>
+                <div class="w-full mb-4">
+                    <p class="text-sm">{{i["stories"]}}</p>
+                </div>
+                <div class="w-full">
+                    <p class="text-xs text-gray-500 text-right">{{i["created_at"]}}</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    {%endfor%}
+      <!--Card Component -->
+          </section>
+          
+          
+          
+          
+
+                    <!--Footer-->
+  </body>
+</html>
+    <script>
+      function countChar(val) {
+        var len = val.value.length;
+        if (len >= 255) {
+          val.value = val.value.substring(0, 255);
+          $('#charNum').text("Looks serious, but sorry your story ends here, is it ok?");
+        } else {
+            $('#charNum').text(255 - len + " characters left");
+        }
+      };
+
+      $(document).ready(function(){
+        $("#closeModal").click(function(){
+          $("#overlay").modal("hide");
+        });
+        $("#openModal").click(function(){
+          $("#overlay").modal("show");
+        });
+      
+    </script>
