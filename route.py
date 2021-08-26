@@ -33,13 +33,15 @@ def index():
     query_read = query_db("select * from story order by created_at desc")
     return render_template("index.html", story=query_read)
 
-@app.route('/confess', methods=['POST'])
+@app.route('/confess', methods=['GET', 'POST'])
 def confess():
     if request.method == 'POST':
         title_story = request.form['title_story']
         username = request.form['username']
         stories = request.form['stories']
-        query_create = query_db("insert into story(title_story, username, stories) values (%s, %s, %s)")
-
+        query_create = query_db("insert into story(title_story, username, stories) values (%s, %s, %s)", (title_story, username, stories))
+        #if username is not None:
+        #    query_db("alter table story modify column username varchar(255) not null default '%s'", (username))
         flash("jadi nih!")
         return redirect(url_for('index'))
+        

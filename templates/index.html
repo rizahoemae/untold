@@ -45,18 +45,18 @@
             </div>
             <div class="mt-5">
               <div class="form">
-                <form method="post" action="{{url_for('confess')}}">
+                <form id="ini-data">
                   <div class="md:flex flex-row md:space-x-4 w-full text-xs">
                     <div class="mb-3 space-y-2 w-full text-xs">
                       <label class="font-semibold text-gray-600 py-2">Title<abbr title="required">*</abbr></label>
-                      <input placeholder="How was today?" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="title_story" id="title_story">
+                      <input placeholder="How was today?" class="appearance-none title-story block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="title_story" id="title_story">
                       <p class="text-red text-xs hidden">Please fill out this field.</p>
                     </div>
                   </div>
                   <div class="md:flex flex-row md:space-x-4 w-full text-xs">
                     <div class="mb-3 space-y-2 w-full text-xs">
                       <label class="font-semibold text-gray-600 py-2">Shown username</label>
-                      <input placeholder="Default value is @unknown" class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="username" id="username">
+                      <input placeholder="Default value is @unknown" class="username appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="username" id="username">
                       <p class="text-red text-xs hidden">Please fill out this field.</p>
                     </div>
                   </div>
@@ -68,9 +68,9 @@
                   <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an asterisk <abbr title="Required field">*</abbr></p>
                   <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
                     <button id="closeModal" class="mb-2 md:mb-0 bg-red-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-red-500 pointer-events-auto">Cancel</button>
-                    <button id="confirm-button" type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Next</button>
-                  </div>
-                </form>   
+                    <button id="confirm-button" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Next</button>
+                  </div> 
+                </form>  
               </div>
             </div>
           </div>
@@ -99,11 +99,10 @@
               Give someone else a chance to send their confession :)
             </p>
           </div>
-          
         </div>
         <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
-          <button id="closeModal-kedua" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Cancel</button>
-          <button type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Save</button>
+          <button id="back" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Back</button>
+          <button id="submit" type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Submit</button>
         </div>
       </div>
     </div>
@@ -185,8 +184,15 @@
           $('#closeModal').click(function(){
             $("#modal-id").css("display", "none");
           })
-          $('#closeModal-kedua').click(function(){
+          $('#back').click(function(){
+            $("#modal-id").css("display", "flex");
             $("#modal-kedua").css("display", "none");
           })
+          $('#submit').click(function(){
+            $("#modal-id").css("display", "none");
+            $("#modal-kedua").css("display", "none");
+            $.post("{{url_for('confess')}}", $("#ini-data").serialize(), function(data){})
+          })
       });
+      
     </script>
