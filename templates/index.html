@@ -36,7 +36,7 @@
   <!--ini form modals satu-->
   <div id="modal-id" class="fixed hidden z-50 inset-0 bg-black bg-center inline flex justify-center items-center bg-opacity-40" >
     <div>
-      <div class="flex max-w-md space-y-8 p-10 bg-white rounded-xl justify-center items-center shadow-lg">
+      <div class="flex max-w-md space-y-6 p-10 bg-white rounded-xl justify-center items-center shadow-lg">
         <div class="grid z-99 w-50 h-50 gap-8 grid-cols-1">
           <div class="flex flex-col justify-center items-center z-99">
             <div class="flex flex-col sm:flex-row items-center">
@@ -49,7 +49,7 @@
                   <div class="md:flex flex-row md:space-x-4 w-full text-xs">
                     <div class="mb-3 space-y-2 w-full text-xs">
                       <label class="font-semibold text-gray-600 py-2">Title<abbr title="required">*</abbr></label>
-                      <input placeholder="How was today?" class="appearance-none title-story block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" required="required" type="text" name="title_story" id="title_story">
+                      <input required="true" placeholder="How was today?" class="appearance-none required title-story block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4" type="text" name="title_story" id="title_story">
                       <p class="text-red text-xs hidden">Please fill out this field.</p>
                     </div>
                   </div>
@@ -62,7 +62,7 @@
                   </div>
                   <div class="flex-auto w-full mb-1 text-xs space-y-2">
                     <label class="font-semibold text-gray-600 py-2">Description</label>
-                    <textarea required="" name="stories" id="stories" onkeyup="countChar(this)" class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Is there anything you want to tell?" spellcheck="false"></textarea>
+                    <textarea required="true" name="stories" id="stories" onkeyup="countChar(this)" class="required w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Is there anything you want to tell?" spellcheck="false"></textarea>
                     <p class="text-xs text-gray-400 text-left my-3" id="charNum"></p>
                   </div>
                   <p class="text-xs text-red-500 text-right my-3">Required fields are marked with an asterisk <abbr title="Required field">*</abbr></p>
@@ -102,7 +102,7 @@
         </div>
         <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
           <button id="back" class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 pointer-events-auto">Back</button>
-          <button id="submit" type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Submit</button>
+          <button id="form-submit" onclick="return myConfirm();" value="submit" type="submit" class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500 pointer-events-auto">Submit</input>
         </div>
       </div>
     </div>
@@ -123,38 +123,62 @@
         </div>
     </div>
     <!--ini adalah end search-->
-      <!--adalah start login-->
+    
+    <!--ini adalah contoh coba deh bentar 
+    <section class="container flex px-6 py-4 mx-auto">
+      <div class="grid flex gap-6 mb-8 md:grid-cols-1 lg:grid-cols-2">
+      
+        {%for i in story%}        
+            <div class="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
+                <img alt="mountain" class="w-45 rounded-md border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
+                 <div id="body" class="flex flex-col ml-5">
+                    <h4 id="name" class="text-xl font-semibold mb-2">{{i["title_story"]}}</h4>
+                    <p id="job" class="text-gray-800 mt-2">{{i["stories"]}}</p>
+                    <div class="flex mt-5">
+                       <img alt="avatar" class="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
+                       <p class="ml-3">{{i["created_at"]}}</p>
+                    </div>
+                 </div>
+            </div>
+        {%endfor%}
+        
+      </div>
+    </section>
+    nah ini ends-->
 
-<!-- This is an example component -->
-<section class="flex flex-row flex-wrap mx-auto">
+    <!-- This is an example component -->
+    
+    <section class="container flex px-6 py-4 mx-auto">
     <!-- Card Component -->
-    {%for i in story%}
-      <div class="transition-all duration-150 flex w-full px-4 py-6 md:w-1/2 lg:w-1/3">
-        <div class="flex flex-col items-stretch min-h-full pb-4 mb-6 transition-all duration-150">
-        <div class="min-w-screen min-h-screen flex items-center justify-center px-5 py-5">
-            <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-5 text-gray-800" style="max-width: 400px">
+      <div class="grid gap-6 mb-8 md:grid-cols-1 lg:grid-cols-4 flex">
+        {%for i in story%}  
+          <div class="min-w-screen p-4 grid mb-4   flex items-center justify-center">
+            <!--ini card-->   
+              <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-16 text-gray-800" style="max-width: 400px">
                 <div class="w-full flex mb-4">
-                    <div class="flex-grow">
-                        <h6 class="font-bold text-md">{{i["title_story"]}}</h6>
-                        <p class="text-xs text-gray-600">@unknown</p>
-                    </div>
-                    <div class="w-12 text-right">
-                        <i class="mdi mdi-twitter text-blue-400 text-3xl"></i>
-                    </div>
+                  <div class="flex-grow">
+                    <h6 class="font-bold text-md">{{i["title_story"]}}</h6>
+                    <p class="text-xs text-gray-600">{{i["username"]}}</p>
+                  </div>
                 </div>
+  
                 <div class="w-full mb-4">
-                    <p class="text-sm">{{i["stories"]}}</p>
+                  <p class="text-sm">{{i["stories"]}}</p>
                 </div>
                 <div class="w-full">
-                    <p class="text-xs text-gray-500 text-right">{{i["created_at"]}}</p>
+                  <p class="text-xs text-gray-500 text-right">{{i["created_at"]}}</p>
                 </div>
-            </div>
-        </div>
+              </div>
+        
+            
+            <!--card berhenti di sini-->
+          </div>
+          {%endfor%}
       </div>
-    </div>
-    {%endfor%}
+    </section>
+    
       <!--Card Component -->
-          </section>
+         
           
           
           
@@ -168,9 +192,9 @@
         var len = val.value.length;
         if (len >= 255) {
           val.value = val.value.substring(0, 255);
-          $('#charNum').text("Looks serious, but sorry your story ends here, is it ok?");
+          $('#charNum').text("Looks serious, but sorry your story ends here, is it ok?").css("color", "red");
         } else {
-            $('#charNum').text(255 - len + " characters left");
+            $('#charNum').text(255 - len + " characters left").css("color", "rgba(156,163,175,var(--tw-text-opacity))");
         }
       };
         $(document).ready(function(){
@@ -194,5 +218,23 @@
             $.post("{{url_for('confess')}}", $("#ini-data").serialize(), function(data){})
           })
       });
-      
+      $(function myConfirm() {
+        var submitButton = $("ini-data input[type='submit']").attr("disabled", true);
+        $("#myForm input.required").change(function () {
+          var valid = true;
+          $.each($("#myForm input.required"), function (index, value) {
+            if(!$(value).val()){
+              valid = false;
+            }
+          });
+          if(valid){
+            $(submitButton).attr("disabled", false);
+          } 
+          else{
+            $(submitButton).attr("disabled", true);
+          }
+        });
+      });
+
+
     </script>
