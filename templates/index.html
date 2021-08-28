@@ -45,7 +45,7 @@
             </div>
             <div class="mt-5">
               <div class="form">
-                <form id="ini-data">
+                <form id="ini-data" method="post" action="{{url_for('confess')}}">
                   <div class="md:flex flex-row md:space-x-4 w-full text-xs">
                     <div class="mb-3 space-y-2 w-full text-xs">
                       <label class="font-semibold text-gray-600 py-2">Title<abbr title="required">*</abbr></label>
@@ -111,10 +111,10 @@
 <!--ini end form modals-->
 
   <!--ini adalah search-->
+  <form method="get" action="{{url_for('result')}}">
     <div class="p-8">
         <div class="bg-white flex items-center rounded-full shadow-lg">
-          <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Search">
-          
+          <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" name="cari" placeholder="Search">
           <div class="p-4">
             <button class="bg-blue-500 fill-current text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
               <img src="{{url_for('static', filename='search2.svg')}}" alt="">
@@ -122,6 +122,7 @@
             </div>
         </div>
     </div>
+  </form>
     <!--ini adalah end search-->
     
     <!--ini adalah contoh coba deh bentar 
@@ -147,18 +148,19 @@
     nah ini ends-->
 
     <!-- This is an example component -->
-    
+  
     <section class="container flex px-6 py-4 mx-auto">
     <!-- Card Component -->
       <div class="grid gap-6 mb-8 md:grid-cols-1 lg:grid-cols-4 flex">
         {%for i in story%}  
           <div class="min-w-screen p-4 grid mb-4   flex items-center justify-center">
             <!--ini card-->   
+            
               <div class="w-full mx-auto rounded-lg bg-white shadow-lg p-16 text-gray-800" style="max-width: 400px">
                 <div class="w-full flex mb-4">
                   <div class="flex-grow">
                     <h6 class="font-bold text-md">{{i["title_story"]}}</h6>
-                    <p class="text-xs text-gray-600">{{i["username"]}}</p>
+                    <p class="text-xs text-gray-600"><span>@</span>{{i["username"]}}</p>
                   </div>
                 </div>
   
@@ -166,17 +168,16 @@
                   <p class="text-sm">{{i["stories"]}}</p>
                 </div>
                 <div class="w-full">
-                  <p class="text-xs text-gray-500 text-right">{{i["created_at"]}}</p>
+                  <p id="inipe" class="text-xs text-gray-500 text-right">{{i["created_at"]}}</p>
                 </div>
               </div>
-        
             
             <!--card berhenti di sini-->
           </div>
           {%endfor%}
       </div>
     </section>
-    
+ 
       <!--Card Component -->
          
           
@@ -212,7 +213,7 @@
             $("#modal-id").css("display", "flex");
             $("#modal-kedua").css("display", "none");
           })
-          $('#submit').click(function(){
+          $('#form-submit').click(function(){
             $("#modal-id").css("display", "none");
             $("#modal-kedua").css("display", "none");
             $.post("{{url_for('confess')}}", $("#ini-data").serialize(), function(data){})
@@ -235,6 +236,9 @@
           }
         });
       });
+
+      var paragraf = document.getElementById("inipe");
+      pe.dateformat(new Date(), "dddd, mmmm dS, yyyy, h:MM TT");
 
 
     </script>
