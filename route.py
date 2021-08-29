@@ -49,8 +49,8 @@ def confess():
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     if request.method == "GET":
-        query = request.form.get('cari')
-        query_search = query_db("select * from story where concat(title_story, stories, username) like '%%s%'", (query))
+        query = request.args['cari']
+        query_search = query_db("select * from story where concat(title_story, stories, username) like %s ", ("%" + query + "%"))
         anu = tuple(query_search)
         return render_template("result.html", data=anu)
     return redirect(url_for("index"))

@@ -12,12 +12,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body class="bg-gray-100 h-screen">
-      <!--ini adalah search-->
-      <div class="p-8">
+
+    <!--ini adalah search-->
+  <form method="get" action="{{url_for('result')}}">
+    <div class="p-8">
         <div class="bg-white flex items-center rounded-full shadow-lg">
-          <form method="get" action="{{url_for('result')}}"></form>
-          <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" name="search" placeholder="Search">
-          
+          <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" name="cari" placeholder="Search">
           <div class="p-4">
             <button class="bg-blue-500 fill-current text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
               <img src="{{url_for('static', filename='search2.svg')}}" alt="">
@@ -25,6 +25,7 @@
             </div>
         </div>
     </div>
+  </form>
     <!--ini adalah end search-->
     
      <!-- This is an example component -->
