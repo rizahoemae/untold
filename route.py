@@ -13,6 +13,11 @@ app.config['MYSQL_DATABASE_DB'] = 'untold'
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 mysql.init_app(app)
 
+def Convert(a):
+    it = iter(a)
+    res_dct = dict(zip(it, it))
+    return res_dct
+
 def query_db(query, args=(), one=False):
     conn = mysql.connect()
     cur = conn.cursor()
@@ -43,13 +48,10 @@ def confess():
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
-    if request.method == "POST":
+    if request.method == "GET":
         query = request.form.get('cari')
-        query_search = query_db("select title_story, username, stories from story where title_story like %s or username like %s or stories like %s", (query, query, query))
-        anu = query_search.fetchall()
-        return render_template("result.html", records=query_search.fetchall()).format(query)
+        query_search = query_db("select * from story where concat(title_story, stories, username) like '%%s%'", (query))
+        anu = tuple(query_search)
+        return render_template("result.html", data=anu)
+    return redirect(url_for("index"))
         
-@app.route('/result/query', methods=['GET','POST'])
-def success(cari):
-    
-    return render_template("result.html", cari=query_search)
