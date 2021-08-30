@@ -11,7 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
-  <body class="bg-gray-100 h-screen">
+  <body class="bg-gray-100 h-screen dark:bg-gray-800">
   <!-- Box left -->
   <div class="md:flex space-x-16 mt-20 md:mr-0 mr-10">
     <div class="md:flex items-center pl-16 ">
@@ -19,7 +19,7 @@
         <h class="lg:text-5xl  font-bold leading-tight text-3xl">Tell the world the untold</h1>
         <p class="mt-4 text-lg font-normal">Sometimes we feel safe if we keep our feelings to ourselves,<br> but not for our hearts. Tell the story here anonymously</p>
         <div class="flex mt-10 w-40 items-center space-x-3 py-3 px-6 bg-indigo-600 text-white rounded-lg transition-all duration-400 transform hover:scale-105 cursor-pointer hover:shadow-lg">
-            <button id="open-modal-id" class="text-lg text-md" onclick="toggleModal('modal-id')">Confess now</button>
+            <button id="open-modal-id" class="text-lg text-md">Confess now</button>
         </div>
         
      </div>
@@ -27,7 +27,7 @@
     </div>
     
     <!-- Box right -->
-    <div class="max-w-lg pr-24 md:flex justify-center items-center  hidden">
+    <div class="max-w-lg pr-24 md:flex justify-center items-center ">
       <img class="rounded-lg" src="{{url_for('static', filename='happy.jpg')}}" alt="">
     </div>
     
@@ -124,28 +124,6 @@
     </div>
   </form>
     <!--ini adalah end search-->
-    
-    <!--ini adalah contoh coba deh bentar 
-    <section class="container flex px-6 py-4 mx-auto">
-      <div class="grid flex gap-6 mb-8 md:grid-cols-1 lg:grid-cols-2">
-      
-        {%for i in story%}        
-            <div class="flex items-center p-4 bg-white border-2 border-gray-200 rounded-lg shadow-sm dark:bg-gray-800">
-                <img alt="mountain" class="w-45 rounded-md border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
-                 <div id="body" class="flex flex-col ml-5">
-                    <h4 id="name" class="text-xl font-semibold mb-2">{{i["title_story"]}}</h4>
-                    <p id="job" class="text-gray-800 mt-2">{{i["stories"]}}</p>
-                    <div class="flex mt-5">
-                       <img alt="avatar" class="w-6 rounded-full border-2 border-gray-300" src="https://picsum.photos/seed/picsum/200" />
-                       <p class="ml-3">{{i["created_at"]}}</p>
-                    </div>
-                 </div>
-            </div>
-        {%endfor%}
-        
-      </div>
-    </section>
-    nah ini ends-->
 
     <!-- This is an example component -->
   

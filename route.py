@@ -52,6 +52,15 @@ def result():
         query = request.args['cari']
         query_search = query_db("select * from story where concat(title_story, stories, username) like %s ", ("%" + query + "%"))
         anu = tuple(query_search)
-        return render_template("result.html", data=anu)
-    return redirect(url_for("index"))
-        
+        return render_template("result.html", data=anu, query=query)
+    return redirect(url_for("internal_server_error"))
+
+@app.route('/portfolio', methods=['GET', 'POST'])
+def portofolio():
+    if request.method == 'POST':
+        return redirect(url_for('result'))
+    return render_template('portfolio.html')
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    return render_template('500.html'), 500
