@@ -28,7 +28,7 @@ created_at timestamp default current_timestamp on update current_timestamp,
 username varchar(255) null default 'unknown');
 ```
 atau yang nantinya bisa bikin table yang endingnya kek gini:
-
+```
 +-------------+--------------+------+-----+---------------------+-------------------------------+
 | Field       | Type         | Null | Key | Default             | Extra                         |
 +-------------+--------------+------+-----+---------------------+-------------------------------+
@@ -38,7 +38,7 @@ atau yang nantinya bisa bikin table yang endingnya kek gini:
 | created_at  | timestamp    | NO   |     | current_timestamp() | on update current_timestamp() |
 | username    | varchar(255) | YES  |     | unknown             |                               |
 +-------------+--------------+------+-----+---------------------+-------------------------------+
-
+```
 atau bisa juga import langsung dari [untold.sql](https://github.com/rizahoemae/untold/blob/main/untold.sql)
 
 
@@ -57,12 +57,12 @@ install Flask menggunakan ```pip install Flask```, install juga Flask MySQL deng
 
 ### Setup [route.py](https://github.com/rizahoemae/untold/blob/main/route.py)
 sesuaikan baris-baris ini dengan punya kamu~
-
-app.config['MYSQL_DATABASE_USER'] = 'ur_user'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'ur_pass'
-app.config['MYSQL_DATABASE_DB'] = 'untold'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-
+```
+app.config['MYSQL_DATABASE_USER'] = 'ur_user' 
+app.config['MYSQL_DATABASE_PASSWORD'] = 'ur_pass' 
+app.config['MYSQL_DATABASE_DB'] = 'untold' 
+app.config['MYSQL_DATABASE_HOST'] = 'localhost' 
+```
 ### Setup venv
 * masuk pada folder untold: ```cd untold```
 * buat venv dengan: ```python3 -m venv venv``` atau menggunakan existing python version punya kamu~~
